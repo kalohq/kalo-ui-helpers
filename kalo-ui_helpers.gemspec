@@ -5,7 +5,7 @@ require "kalo/ui_helpers/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name = "KaloUIHelpers"
+  s.name = "kalo-ui_helpers"
   s.version = Kalo::UIHelpers::VERSION
   s.authors = ["Kalo Team"]
   s.email = ["tech@kalohq.com"]
