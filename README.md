@@ -1,28 +1,19 @@
 # Kalium
-Short description and motivation.
+
+A set of shared helpers for use in our internal Rails projects
 
 ## Usage
-How to use my plugin.
 
-## Installation
 Add this line to your application's Gemfile:
 
 ```ruby
 gem 'kalium'
 ```
 
-And then execute:
+And then run:
+
 ```bash
 $ bundle
 ```
 
-Or install it yourself as:
-```bash
-$ gem install kalium
-```
-
-## Contributing
-Contribution directions go here.
-
-## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The helpers will then be available in your application.
