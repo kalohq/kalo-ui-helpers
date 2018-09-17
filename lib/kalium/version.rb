@@ -1,10 +1,3 @@
-require "json"
-
 module Kalium
-  VERSION =
-    JSON.load(
-      File.open(
-        File.expand_path("../../../version.json", __FILE__)
-      )
-    )["version"]
+  VERSION = '1.0.0'
 end
