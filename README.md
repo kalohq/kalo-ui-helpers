@@ -1,4 +1,4 @@
-# Kalium
+# Kalo::UIHelpers
 
 A set of shared helpers for use in our internal Rails projects
 
@@ -7,7 +7,7 @@ A set of shared helpers for use in our internal Rails projects
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'kalium'
+gem "kalo-ui_helpers", git: "git@github.com:kalohq/kalo-ui-helpers", branch: "master"
 ```
 
 And then run:

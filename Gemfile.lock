@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    kalium (1.0.0)
+    KaloUIHelpers (1.0.0)
       rails (~> 5.2.1)
 
 GEM
@@ -157,10 +157,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  KaloUIHelpers!
   capybara
   factory_bot_rails
   faker
-  kalium!
   rspec-rails
   sqlite3
 

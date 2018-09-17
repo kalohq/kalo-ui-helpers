@@ -1,15 +1,15 @@
 $:.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
-require "kalium/version"
+require "kalo/ui_helpers/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name = "kalium"
-  s.version = Kalium::VERSION
+  s.name = "KaloUIHelpers"
+  s.version = Kalo::UIHelpers::VERSION
   s.authors = ["Kalo Team"]
   s.email = ["tech@kalohq.com"]
-  s.homepage = "https://github.com/kalohq/kalium"
+  s.homepage = "https://github.com/kalohq/kalo-ui-helpers"
   s.summary = "Shared Kalo Rails helpers"
   s.description = "A set of shared helpers, styles, and other assets for our Rails projects"
   s.license = "MIT"

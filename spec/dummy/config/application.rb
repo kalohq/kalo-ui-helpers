@@ -1,9 +1,9 @@
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
 Bundler.require(*Rails.groups)
-require "kalium"
+require "kalo-ui_helpers"
 
 module Dummy
   class Application < Rails::Application
@@ -16,4 +16,3 @@ module Dummy
     # the framework and any gems in your application.
   end
 end
-
