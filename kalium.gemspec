@@ -1,10 +1,10 @@
-lib = File.expand_path("../lib-gem", __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "kalium/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "kalium"
-  spec.version       = Kalium:VERSION
+  spec.version       = Kalium::VERSION
   spec.authors       = ["Kalo Team"]
   spec.email         = ["tech@kalohq.com"]
 
