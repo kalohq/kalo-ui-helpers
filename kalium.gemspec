@@ -1,20 +1,28 @@
-lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+$:.push File.expand_path("lib", __dir__)
+
+# Maintain your gem's version:
 require "kalium/version"
 
-Gem::Specification.new do |spec|
-  spec.name          = "kalium"
-  spec.version       = Kalium::VERSION
-  spec.authors       = ["Kalo Team"]
-  spec.email         = ["tech@kalohq.com"]
+# Describe your gem and declare its dependencies:
+Gem::Specification.new do |s|
+  s.name = "kalium"
+  s.version = Kalium::VERSION
+  s.authors = ["Kalo Team"]
+  s.email = ["tech@kalohq.com"]
+  s.homepage = "https://github.com/kalohq/kalium"
+  s.summary = "Shared Kalo Rails helpers"
+  s.description = "A set of shared helpers, styles, and other assets for our Rails projects"
+  s.license = "MIT"
 
-  spec.summary       = "Shared Kalo Rails helpers"
-  spec.description   = "A set of shared helpers, styles, and other assets for our Rails projects"
-  spec.homepage      = "https://github.com/kalohq/kalium"
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.files         = `git ls-files`.split($\) - %w(.circleci config flow-typed lib scripts site src .babelrc .eslintignore .eslintrc.js .flowconfig .gitignore .istanbul.yml .nvmrc .prettierignore .prettierrc gulpfile.js package-lock.json package.json postcss.config.js wallaby.js)
-  spec.require_paths = ["lib"]
+  s.add_dependency "rails", "~> 5.2.1"
+  s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "capybara"
+  s.add_development_dependency "factory_bot_rails"
+  s.add_development_dependency "faker"
 
-  spec.add_development_dependency "bundler", "~> 1.16"
-  spec.add_development_dependency "rake", "~> 10.0"
+  s.add_development_dependency "sqlite3"
+
+  s.test_files = Dir["spec/**/*"]
 end
