@@ -1,6 +1,6 @@
 module IconHelper
   def icon(asset, options = {})
-    file = File.read(Rails.root.join(KaloUI.gem_path, "lib-gem", "icons", "svg", "#{asset}.svg"))
+    file = File.read(Rails.root.join("node_modules", "@kalo", "ui", "lib", "icons", "svg", "#{asset}.svg"))
     doc = Nokogiri::HTML::DocumentFragment.parse file
     svg = doc.at_css "svg"
 
