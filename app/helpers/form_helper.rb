@@ -19,6 +19,11 @@ module FormHelper
       ui_field_wrapper(name, email_field(name, extract_input_options(options)), options)
     end
 
+    def ui_password_field(name, options = {})
+      options = set_classname(name, options)
+      ui_field_wrapper(name, password_field(name, extract_input_options(options)), options)
+    end
+
     def ui_telephone_field(name, options = {})
       options = set_classname(name, options)
       ui_field_wrapper(name, telephone_field(name, extract_input_options(options)), options)
@@ -29,9 +34,36 @@ module FormHelper
       ui_field_wrapper(name, select(name, content, only_select_options(options), extract_select_options(options)), options)
     end
 
+    def ui_text_area(name, options = {})
+      options = set_classname(name, options)
+      ui_field_wrapper(name, text_area(name, extract_input_options(options)), options)
+    end
+    
     def ui_date_field(name, options = {})
       options = set_classname(name, options)
       ui_field_wrapper(name, date_field(name, extract_input_options(options)), options)
+    end
+
+    def ui_radio_button_field(name, value, options = {})
+      options = set_classname(name, options, "radio")
+      ui_field_wrapper(name, radio_button(name, value, extract_input_options(options)), options)
+    end
+
+    def ui_check_box(name, options = {})
+      options = set_classname(name, options)
+      options[:hideLabel] = true
+
+      # These are the visible labels displayed to the user
+      label = content_tag(:span, options[:label], class: "ui-checkbox__label")
+      checkboxHint = content_tag(:span, options [:checkboxHint], class: "ui-checkbox__hint")
+      visibleLabel = content_tag(:div, label + checkboxHint, class: "ui-checkbox__label-group")
+
+      # This markup is required for our custom styled checkboxes
+      content = content_tag :div, class: "ui-checkbox ui-checkbox--large" do
+        check_box(name) +
+        label(name, visibleLabel)
+      end
+      ui_field_wrapper(name, content, options)
     end
 
     def ui_field_wrapper(name, content, options = {})
@@ -39,7 +71,8 @@ module FormHelper
       inline_help = hint_tag(options[:hint])
       inline_errors = error_tag(name, errors)
       inline_help = inline_help_tag(inline_help, inline_errors)
-      children = label(name, options[:label], class: "ui-field-label") + content + inline_help
+      label = !options[:hideLabel] && label(name, options[:label], class: "ui-field-label")
+      children = label ? label + content + inline_help : content + inline_help
       is_required = !!options[:required]
 
       content_tag(:div, children, class: "ui-field#{is_required ? " ui-field--required" : ""}")
