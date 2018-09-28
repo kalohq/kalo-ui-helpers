@@ -19,6 +19,7 @@ module FormHelper
       ui_field_wrapper(name, email_field(name, extract_input_options(options)), options)
     end
 
+    # TODO: add tests
     def ui_password_field(name, options = {})
       options = set_classname(name, options)
       ui_field_wrapper(name, password_field(name, extract_input_options(options)), options)
@@ -33,7 +34,8 @@ module FormHelper
       options = set_classname(name, options, 'select')
       ui_field_wrapper(name, select(name, content, only_select_options(options), extract_select_options(options)), options)
     end
-
+  
+    # TODO: add tests
     def ui_text_area(name, options = {})
       options = set_classname(name, options)
       ui_field_wrapper(name, text_area(name, extract_input_options(options)), options)
@@ -44,11 +46,13 @@ module FormHelper
       ui_field_wrapper(name, date_field(name, extract_input_options(options)), options)
     end
 
+    # TODO: add tests
     def ui_radio_button_field(name, value, options = {})
       options = set_classname(name, options, "radio")
       ui_field_wrapper(name, radio_button(name, value, extract_input_options(options)), options)
     end
 
+    # TODO: add tests
     def ui_check_box(name, options = {})
       options = set_classname(name, options)
       options[:hideLabel] = true
@@ -73,7 +77,7 @@ module FormHelper
       inline_help = inline_help_tag(inline_help, inline_errors)
       label = !options[:hideLabel] && label(name, options[:label], class: "ui-field-label")
       children = label ? label + content + inline_help : content + inline_help
-      is_required = !!options[:required]
+      is_required = options[:required] || options["required"]
 
       content_tag(:div, children, class: "ui-field#{is_required ? " ui-field--required" : ""}")
     end
