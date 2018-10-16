@@ -6,7 +6,7 @@ module FormHelper
     include ActionView::Helpers::FormOptionsHelper
     include ActionView::Context
 
-    UI_OPTIONS = [:hint, :label, :size]
+    UI_OPTIONS = [:hint, :label, :size, :hide_label]
     SELECT_OPTIONS = [:prompt, :include_blank]
 
     def ui_text_field(name, options = {})
@@ -55,17 +55,17 @@ module FormHelper
     # TODO: add tests
     def ui_check_box(name, options = {})
       options = set_classname(name, options)
-      options[:hideLabel] = true
+      options[:hide_label] = true
 
       # These are the visible labels displayed to the user
       label = content_tag(:span, options[:label], class: "ui-checkbox__label")
-      checkboxHint = content_tag(:span, options [:checkboxHint], class: "ui-checkbox__hint")
-      visibleLabel = content_tag(:div, label + checkboxHint, class: "ui-checkbox__label-group")
+      checkbox_hint = content_tag(:span, options[:checkbox_hint], class: "ui-checkbox__hint")
+      visible_label = content_tag(:div, label + checkbox_hint, class: "ui-checkbox__label-group")
 
       # This markup is required for our custom styled checkboxes
       content = content_tag :div, class: "ui-checkbox ui-checkbox--large" do
         check_box(name) +
-        label(name, visibleLabel)
+        label(name, visible_label)
       end
       ui_field_wrapper(name, content, options)
     end
@@ -75,7 +75,7 @@ module FormHelper
       inline_help = hint_tag(options[:hint])
       inline_errors = error_tag(name, errors)
       inline_help = inline_help_tag(inline_help, inline_errors)
-      label = !options[:hideLabel] && label(name, options[:label], class: "ui-field-label")
+      label = !options[:hide_label] && label(name, options[:label], class: "ui-field-label")
       children = label ? label + content + inline_help : content + inline_help
       is_required = options[:required] || options["required"]
 
