@@ -43,7 +43,7 @@ module FormHelper
     
     def ui_date_field(name, options = {})
       options = set_classname(name, options)
-      ui_field_wrapper(name, date_field(name, extract_input_options(options)), options)
+      ui_field_wrapper(name, date_field(object, name, extract_input_options(options)), options)
     end
 
     # TODO: add tests
