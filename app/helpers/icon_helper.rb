@@ -28,7 +28,7 @@ module IconHelper
           svg[:fill] = options[:fill]
         end
       else 
-        svg["fill"] = options[:fill]
+        svg[:fill] = options[:fill]
       end
     end
 
