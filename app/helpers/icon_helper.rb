@@ -4,6 +4,8 @@ module IconHelper
     doc = Nokogiri::HTML::DocumentFragment.parse file
     svg = doc.at_css "svg"
 
+    gradient_pink = '<defs><linearGradient id="gradient-pink"><stop offset="0%" stop-color="rgb(232, 63, 148)" /><stop offset="50%" stop-color="rgb(245, 78, 94)" /></linearGradient></defs>'
+
     if options[:class].present?
       svg["class"] = options[:class]
     end
@@ -17,7 +19,17 @@ module IconHelper
     end
 
     if options[:fill].present?
-      svg["fill"] = options[:fill]
+      if options[:fill].match(/^(gradient-).*/)
+        case options[:fill]
+        when "gradient-pink"
+          svg[:fill] = "url(#gradient-pink)"
+          svg.add_child(gradient_pink)
+        else
+          svg[:fill] = options[:fill]
+        end
+      else 
+        svg["fill"] = options[:fill]
+      end
     end
 
     doc.to_html.html_safe
