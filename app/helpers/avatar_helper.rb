@@ -1,39 +1,38 @@
 module AvatarHelper
-  def UIAvatar(options = {})
-    fallbackColor = options[:fallbackColor] || 'navy'
-    fallbackInitials = options[:fallbackInitials] || nil
+  def ui_avatar(options = {})
+    return nil unless options[:src].present?
+    fallback_color = options[:fallbackColor] || options[:fallback_color] || 'navy'
+    fallback_initials = options[:fallbackInitials] || options[:fallback_initials] || nil
     size = options[:size] || 'medium'
     name = options[:name] || nil
-    isGrouped = options[:isGrouped] || false
-
-    avatarImage = content_tag(:span, '', class: "ui-avatar__avatar", style: "background-image: url(#{options[:src]})").html_safe
-
-    content_tag(:span,
-      avatarImage,
-      'aria-label': name,
-      'data-fallback-initials': fallbackInitials,
-      class: "ui-avatar ui-avatar--#{size} ui-avatar--fallback-#{fallbackColor} #{isGrouped && 'ui-avatar--grouped'}",
-      role: 'img'
-    ).html_safe
-  end
-
-  def UIAvatarGroup(options = {})
-    chipSize = options[:avatars] ? options[:avatars].last[:size] : nil
-    overflowChip = content_tag(:span,
-      options[:overflow],
-      class: "ui-avatar-group__chip ui-avatar--#{chipSize}",
-    ).html_safe
-
-     if (options[:avatars])
-      content_tag(:div, :nil, class: "ui-avatar-group" ) {
-        options[:avatars].each do |avatar|
-          avatar[:isGrouped] = true
-          concat UIAvatar(avatar)
-        end
-        concat overflowChip
-      }.html_safe
+    is_grouped = options[:isGrouped] || options[:is_grouped] || false
+    optional_classes = *options[:class]
+    classes = ["ui-avatar ui-avatar--#{size}", "ui-avatar--fallback-#{fallback_color}", ("ui-avatar--grouped" if is_grouped)]
+    if optional_classes
+      classes += optional_classes
     end
 
+    content_tag(:span,
+      'aria-label': name,
+      'data-fallback-initials': fallback_initials,
+      class: classes,
+      role: 'img'
+    ) do
+      content_tag(:span, '', class: "ui-avatar__avatar", style: "background-image: url(#{options[:src]})")
+    end
   end
-  
+
+  def ui_avatar_group(options = {}, &block)
+    return nil unless block_given?
+    avatars = capture(&block)
+    chip_size = options[:chip_size] || "medium"
+    overflow_chip = options[:overflow] ? content_tag(:span,
+      options[:overflow],
+      class: "ui-avatar-group__chip ui-avatar--#{chip_size}",
+    ) : nil
+    
+    content_tag(:div, class: "ui-avatar-group") do
+      [avatars, overflow_chip].join.html_safe
+    end
+  end
 end
