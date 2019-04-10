@@ -13,8 +13,14 @@ describe AvatarHelper, type: :helper do
     end
 
     context "with no src" do
-      it "renders nil" do
-        expect(helper.ui_avatar).to be nil
+      it "renders without background image" do
+        expected = [
+          '<span class="ui-avatar ui-avatar--medium ui-avatar--fallback-navy " role="img">',
+            '<span class="ui-avatar__avatar"></span>',
+          '</span>'
+        ].join
+        output = helper.ui_avatar
+        expect(output).to eq expected
       end
     end
 
