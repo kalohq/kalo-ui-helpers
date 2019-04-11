@@ -1,24 +1,38 @@
 module AvatarHelper
+  def ui_avatar_fallback_initials(name = "")
+    return nil unless name.present?
+    parts = name.split(" ")
+    return "#{name[0]}#{name[-1]}".upcase unless parts.length > 1
+    "#{parts.first[0]}#{parts.last[0]}".upcase
+  end
+
+  def ui_avatar_fallback_color(s = "")
+    return "navy" unless s.present?
+    colors = %w(orange pink green blue navy)
+    code_points_sum = s.chars.map(&:ord).reduce(0, :+)
+    colors[code_points_sum % colors.length || -1]
+  end
+
   def ui_avatar(options = {})
-    return nil unless options[:src].present?
-    fallback_color = options[:fallbackColor] || options[:fallback_color] || 'navy'
-    fallback_initials = options[:fallbackInitials] || options[:fallback_initials] || nil
+    fallback_color = options[:fallback_color] || 'navy'
+    fallback_initials = options[:fallback_initials] || nil
     size = options[:size] || 'medium'
     name = options[:name] || nil
-    is_grouped = options[:isGrouped] || options[:is_grouped] || false
+    is_grouped = options[:is_grouped] || false
     optional_classes = *options[:class]
     classes = ["ui-avatar ui-avatar--#{size}", "ui-avatar--fallback-#{fallback_color}", ("ui-avatar--grouped" if is_grouped)]
     if optional_classes
       classes += optional_classes
     end
 
-    content_tag(:span,
+    content_tag(
+      :span,
       'aria-label': name,
       'data-fallback-initials': fallback_initials,
       class: classes,
       role: 'img'
     ) do
-      content_tag(:span, '', class: "ui-avatar__avatar", style: "background-image: url(#{options[:src]})")
+      content_tag(:span, nil, class: "ui-avatar__avatar", style: ("background-image: url(#{options[:src]})" if options[:src].present?))
     end
   end
 
