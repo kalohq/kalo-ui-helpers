@@ -1,4 +1,18 @@
 module AvatarHelper
+  def ui_avatar_fallback_initials(name = "")
+    return nil unless name.present?
+    parts = name.split(" ")
+    return "#{name[0]}#{name[-1]}".upcase unless parts.length > 1
+    "#{parts.first[0]}#{parts.last[0]}".upcase
+  end
+
+  def ui_avatar_fallback_color(s = "")
+    return "navy" unless s.present?
+    colors = %w(orange pink green blue navy)
+    code_points_sum = s.chars.map(&:ord).reduce(0, :+)
+    colors[code_points_sum % colors.length || -1]
+  end
+
   def ui_avatar(options = {})
     fallback_color = options[:fallback_color] || 'navy'
     fallback_initials = options[:fallback_initials] || nil

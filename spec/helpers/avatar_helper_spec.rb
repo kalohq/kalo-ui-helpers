@@ -1,6 +1,47 @@
 require "spec_helper"
 
 describe AvatarHelper, type: :helper do
+  describe "#ui_avatar_fallback_initials" do
+    context "with no name" do
+      it "returns nil" do
+        expect(helper.ui_avatar_fallback_initials).to be_nil
+      end
+    end
+
+    context "with a single name" do
+      it "returns first and last characters uppercased" do
+        alphabet = ("a".."z").to_a.join
+        expect(helper.ui_avatar_fallback_initials alphabet).to eq "AZ"
+      end
+    end
+
+    context "with a full name" do
+      it "returns first character of first and last names uppercased" do
+        name = "Any Multiple-Word String"
+        expect(helper.ui_avatar_fallback_initials name).to eq "AS"
+      end
+    end
+  end
+
+  describe "#ui_avatar_fallback_color" do
+    context "with no string" do
+      it "returns navy" do
+        expect(helper.ui_avatar_fallback_color).to eq "navy"
+      end
+    end
+
+    context "with a string" do
+      it "returns a color based on modulo of sum of code points in string" do
+        expect(helper.ui_avatar_fallback_color "a").to eq "green"
+        expect(helper.ui_avatar_fallback_color "b").to eq "blue"
+        expect(helper.ui_avatar_fallback_color "c").to eq "navy"
+        expect(helper.ui_avatar_fallback_color "d").to eq "orange"
+        expect(helper.ui_avatar_fallback_color "e").to eq "pink"
+        expect(helper.ui_avatar_fallback_color "abc").to eq "navy"
+      end
+    end
+  end
+
   describe "#ui_avatar" do
     it "renders avatar with default options" do
       expected = [
