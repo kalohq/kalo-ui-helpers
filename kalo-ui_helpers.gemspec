@@ -12,9 +12,9 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/kalohq/kalo-ui-helpers"
   s.summary = "Shared Kalo Rails helpers"
   s.description = "A set of shared helpers, styles, and other assets for our Rails projects"
-  s.license = "MIT"
+  s.licenses = ["Nonstandard"]
+  s.files = Dir["{app,config,db,lib}/**/*", "Rakefile", "README.md"]
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", "~> 5.2.1"
   s.add_development_dependency "rspec-rails"
